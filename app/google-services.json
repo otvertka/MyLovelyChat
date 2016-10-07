@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "395987635540",
+    "firebase_url": "https://mylovelychat-c00d1.firebaseio.com",
+    "project_id": "mylovelychat-c00d1",
+    "storage_bucket": "mylovelychat-c00d1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:395987635540:android:76337cd10a021baa",
+        "android_client_info": {
+          "package_name": "com.example.mylovelychat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "395987635540-2ucqosrevbcs2mcql99dt4eiubcjhcpf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmSYRglQa2WPWSstt53gf5GRn3KTB86aQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
