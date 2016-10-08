@@ -23,10 +23,13 @@ import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Button buttonRegister;
+    private EditText editTextName;
     private EditText editTextEmail;
     private EditText editTextPassword;
     private TextView textViewSignin;
@@ -34,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ProgressDialog progressDialog;
 
     private FirebaseAuth firebaseAuth;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +46,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         firebaseAuth = FirebaseAuth.getInstance();
 
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
+
+        /**возможно этот кусок кода нужно будет изменить на слушателя*/
         if (firebaseAuth.getCurrentUser() != null){
             //profile activity here
             finish();
-            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+            startActivity(new Intent(getApplicationContext(), ListActivity.class));
         }
 
+        editTextName = (EditText) findViewById(R.id.editTextName);
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         textViewSignin = (TextView) findViewById(R.id.textViewSignin);
@@ -61,8 +69,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void registerUser()  {
+        final String name = editTextName.getText().toString().trim();
         final String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
+
+        if (TextUtils.isEmpty(name)){
+            //name is empty
+            Toast.makeText(this, "Please enter name", Toast.LENGTH_SHORT).show();
+            //stopping the function execution further
+            return;
+        }
 
         if (TextUtils.isEmpty(email)){
             //email is empty
@@ -91,6 +107,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             //User is successfully registered and logged in
                             //we will start the profile activity here
                             //right now lets display a toast only
+                            String user_id = firebaseAuth.getCurrentUser().getUid();
+                            DatabaseReference current_user_db = databaseReference.child(user_id);
+                            current_user_db.child("name").setValue(name);
+
                             finish();
                             startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                         }else{
