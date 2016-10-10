@@ -3,6 +3,8 @@ package com.example.mylovelychat.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +12,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.mylovelychat.FireChatHelper.ChatHelper;
 import com.example.mylovelychat.FireChatHelper.ReferenceUrl;
 import com.example.mylovelychat.R;
 import com.example.mylovelychat.model.UsersChatModel;
+import com.example.mylovelychat.ui.ChatActivity;
 
 import java.util.List;
 
@@ -42,7 +46,10 @@ public class UsersChatAdapter extends RecyclerView.Adapter<UsersChatAdapter.View
     public void onBindViewHolder(ViewHolderUsers holder, int position) {
         UsersChatModel fireChatUser = mFireChatUsers.get(position);
 
-        // here Set avatar dopisat'
+        // Set avatar
+        int userAvatarId = ChatHelper.getDrawableAvatarId(fireChatUser.getAvatarId());
+        Drawable avatarDrawable = ContextCompat.getDrawable(mContext, userAvatarId);
+        holder.getmUserPhoto().setImageDrawable(avatarDrawable);
 
         // Set username
         holder.getmUserFirstName().setText(fireChatUser.getFirstName());
@@ -90,8 +97,6 @@ public class UsersChatAdapter extends RecyclerView.Adapter<UsersChatAdapter.View
     public class ViewHolderUsers extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private ImageView mUserPhoto; //User avatar
-
-
         private TextView mUserFirstName; // User first name
         private TextView mStatusConnection; // User presence
         private Context mContextViewHolder;
@@ -107,7 +112,6 @@ public class UsersChatAdapter extends RecyclerView.Adapter<UsersChatAdapter.View
 
             itemView.setOnClickListener(this);
         }
-
 
         public ImageView getmUserPhoto() {
             return mUserPhoto;

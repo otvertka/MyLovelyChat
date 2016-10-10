@@ -32,5 +32,12 @@
             android:id="@+id/buttonLogout"
             android:layout_gravity="center_horizontal"/>
 
+        <Button
+            android:text="go to list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonList"
+            android:layout_gravity="center_horizontal"/>
+
     </LinearLayout>
 </RelativeLayout>

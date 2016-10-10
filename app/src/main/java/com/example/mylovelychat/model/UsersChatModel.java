@@ -2,6 +2,7 @@ package com.example.mylovelychat.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 /**
  * Created by Дмитрий on 08.10.2016.
@@ -9,12 +10,13 @@ import android.os.Parcelable;
 
 public class UsersChatModel implements Parcelable {
 
+    public static final String TAG = "myLogs";
 
-/**recipient info*/
+    /**recipient info*/
     private String firstName;
     private String provider; //if you don't include this app crash
     private String userEmail;
-    private String createAt;
+    private String createdAt;
     private String connection;
     private int    avatarId;
     private String mRecipientUid;
@@ -26,13 +28,18 @@ public class UsersChatModel implements Parcelable {
     private String mCurrentUserEmail;
     private String mCurrentUserCreatedAt;
 
+    public UsersChatModel(){
+        //required empty username
+    }
+
     private UsersChatModel(Parcel in) {
+        Log.d(TAG, "UsersChatModel ");
 
         //Remember the order used to read data is the same used to write them
         firstName = in.readString();
         provider = in.readString();
         userEmail = in.readString();
-        createAt = in.readString();
+        createdAt = in.readString();
         connection = in.readString();
         avatarId = in.readInt();
         mRecipientUid = in.readString();
@@ -43,99 +50,121 @@ public class UsersChatModel implements Parcelable {
     }
 
     public String getmCurrentUserName() {
+        Log.d(TAG, "getmCurrentUserName ");
         return mCurrentUserName;
     }
 
     public void setmCurrentUserName(String mCurrentUserName) {
+        Log.d(TAG, "setmCurrentUserName ");
         this.mCurrentUserName = mCurrentUserName;
     }
 
     public String getmCurrentUserUid() {
+        Log.d(TAG, "getmCurrentUserUid ");
         return mCurrentUserUid;
     }
 
     public void setmCurrentUserUid(String mCurrentUserUid) {
+        Log.d(TAG, "setmCurrentUserUid ");
         this.mCurrentUserUid = mCurrentUserUid;
     }
 
     public String getmCurrentUserEmail() {
+        Log.d(TAG, "getmCurrentUserEmail ");
         return mCurrentUserEmail;
     }
 
     public void setmCurrentUserEmail(String mCurrentUserEmail) {
+        Log.d(TAG, "setmCurrentUserEmail ");
         this.mCurrentUserEmail = mCurrentUserEmail;
     }
 
     public String getmCurrentUserCreatedAt() {
+        Log.d(TAG, "getmCurrentUserCreatedAt ");
         return mCurrentUserCreatedAt;
     }
 
     public void setmCurrentUserCreatedAt(String mCurrentUserCreatedAt) {
+        Log.d(TAG, "setmCurrentUserCreatedAt ");
         this.mCurrentUserCreatedAt = mCurrentUserCreatedAt;
     }
 
 
 /**Recipient info*/
     public String getFirstName() {
+        Log.d(TAG, "getFirstName ");
         return firstName;
     }
 
     public String getProvider() {
+        Log.d(TAG, "getProvider ");
         return provider;
     }
 
     public String getUserEmail() {
+        Log.d(TAG, "getUserEmail ");
         return userEmail;
     }
 
-    public String getCreateAt() {
-        return createAt;
+    public String getCreatedAt() {
+        Log.d(TAG, "getCreatedAt ");
+        return createdAt;
     }
 
     public String getConnection() {
+        Log.d(TAG, "getConnection ");
         return connection;
     }
 
     public int getAvatarId() {
+        Log.d(TAG, "getAvatarId ");
         return avatarId;
     }
 
     public String getRecipientUid() {
+        Log.d(TAG, "getRecipientUid ");
         return mRecipientUid;
     }
 
     public void setRecipientUid(String RecipientUid) {
+        Log.d(TAG, "setRecipientUid ");
         this.mRecipientUid = RecipientUid;
     }
 
 
 /**Parcelable*/
     public static final Creator<UsersChatModel> CREATOR = new Creator<UsersChatModel>() {
+
         @Override
         public UsersChatModel createFromParcel(Parcel in) {
+            Log.d(TAG, "createFromParcel ");
             return new UsersChatModel(in);
         }
 
         @Override
         public UsersChatModel[] newArray(int size) {
+            Log.d(TAG, "newArray ");
+
             return new UsersChatModel[size];
         }
     };
 
     @Override
     public int describeContents() {
+        Log.d(TAG, "describeContents ");
         return 0; //ignore
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        Log.d(TAG, "writeToParcel ");
 
         // Store information using parcel method
         // the order for writing and reading must be the same
         dest.writeString(firstName);
         dest.writeString(provider);
         dest.writeString(userEmail);
-        dest.writeString(createAt);
+        dest.writeString(createdAt);
         dest.writeString(connection);
         dest.writeInt(avatarId);
         dest.writeString(mRecipientUid);

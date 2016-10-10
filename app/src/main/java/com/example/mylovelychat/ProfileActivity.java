@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.mylovelychat.ui.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -16,6 +17,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private FirebaseAuth firebaseAuth;
 
     private Button buttonLogout;
+    private Button buttonList;
 
 
     @Override
@@ -35,8 +37,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         TextView textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
         textViewUserEmail.setText("Welcome " + user.getEmail());
         buttonLogout = (Button) findViewById(R.id.buttonLogout);
+        buttonList = (Button) findViewById(R.id.buttonList);
 
         buttonLogout.setOnClickListener(this);
+        buttonList.setOnClickListener(this);
     }
 
     @Override
@@ -45,6 +49,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             firebaseAuth.signOut();
             finish();
             startActivity(new Intent(this, LoginActivity.class));
+        }
+        if (v == buttonList){
+            finish();
+            startActivity(new Intent(this, ListActivity.class));
         }
     }
 }
