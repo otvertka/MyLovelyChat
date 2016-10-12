@@ -131,6 +131,34 @@ public class UsersChatModel implements Parcelable {
         this.mRecipientUid = RecipientUid;
     }
 
+    /* Create chat endpoint for firebase*/
+    public String getChatRef(){
+        return createUniqueChatRef();
+    }
+
+    private String createUniqueChatRef(){
+        String uniqueChatRef = "";
+        if (createdAtCurrentUser() > createdAtRecipient()){
+            uniqueChatRef = cleanEmailAddress(getmCurrentUserEmail()) + "-" + cleanEmailAddress(getUserEmail());
+        } else {
+            uniqueChatRef = cleanEmailAddress(getUserEmail()) + "-" + cleanEmailAddress(getmCurrentUserEmail());
+        }
+        return uniqueChatRef;
+    }
+
+    private long createdAtCurrentUser(){
+        return Long.parseLong(getmCurrentUserCreatedAt());
+    }
+
+    private long createdAtRecipient(){
+        return Long.parseLong(getCreatedAt());
+    }
+
+    private String cleanEmailAddress(String email){
+        // replace dot with comma since firebase does not allow dot
+        return email.replace(".", "-");
+    }
+
 
 /**Parcelable*/
     public static final Creator<UsersChatModel> CREATOR = new Creator<UsersChatModel>() {

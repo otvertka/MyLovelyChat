@@ -76,21 +76,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String password = editTextPassword.getText().toString().trim();
 
         if (TextUtils.isEmpty(name)){
-            //name is empty
             Toast.makeText(this, "Please enter name", Toast.LENGTH_SHORT).show();
             //stopping the function execution further
             return;
         }
 
         if (TextUtils.isEmpty(email)){
-            //email is empty
             Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show();
             //stopping the function execution further
             return;
         }
 
         if (TextUtils.isEmpty(password)){
-            //password is empty
             Toast.makeText(this, "Please enter password", Toast.LENGTH_SHORT).show();
             //stopping the function execution further
             return;

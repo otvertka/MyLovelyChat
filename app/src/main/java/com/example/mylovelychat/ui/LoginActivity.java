@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mylovelychat.FireChatHelper.ReferenceUrl;
 import com.example.mylovelychat.ProfileActivity;
 import com.example.mylovelychat.R;
 import com.example.mylovelychat.ui.MainActivity;
@@ -19,6 +20,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -28,6 +31,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private TextView textViewSignUp;
 
     private FirebaseAuth firebaseAuth;
+    private DatabaseReference reference;
 
     private ProgressDialog progressDialog;
 
@@ -37,6 +41,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        reference = FirebaseDatabase.getInstance().getReference().child("Users");
 
         /**вроед должно рабоать и бех этого*/
         if (firebaseAuth.getCurrentUser() != null){
@@ -73,6 +78,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             //stopping the function execution further
             return;
         }
+
+
+
         //if validation are ok
         //we will first show a progressbar
 
@@ -87,6 +95,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                         if (task.isSuccessful()){
                             //start the profile activity
+                            /*here i self added code*/
+                            reference.child(firebaseAuth.getCurrentUser().getUid()).child(ReferenceUrl.CHILD_CONNECTION).setValue(ReferenceUrl.KEY_ONLINE);
+
                             finish();
                             startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                         }

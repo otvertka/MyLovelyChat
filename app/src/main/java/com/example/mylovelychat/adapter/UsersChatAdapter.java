@@ -63,7 +63,7 @@ public class UsersChatAdapter extends RecyclerView.Adapter<UsersChatAdapter.View
             holder.getmStatusConnection().setTextColor(Color.parseColor("#00FF00"));
         } else{
             // red color
-            holder.getmStatusConnection().setTextColor(Color.parseColor("@FF0000"));
+            holder.getmStatusConnection().setTextColor(Color.parseColor("#FF0000"));
         }
 
     }
