@@ -43,13 +43,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         firebaseAuth = FirebaseAuth.getInstance();
         reference = FirebaseDatabase.getInstance().getReference().child("Users");
 
-        /**вроед должно рабоать и бех этого*/
-        if (firebaseAuth.getCurrentUser() != null){
-            //profile activity here
-            finish();
-            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
-        }
-
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         buttonSignIn = (Button) findViewById(R.id.buttonSignin);
@@ -100,6 +93,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                             finish();
                             startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                        } else {
+                            //Exception s = task.getException();
+                            Toast.makeText(LoginActivity.this, "Неверно введен e-mail или пароль ",  Toast.LENGTH_LONG).show();
+                            progressDialog.hide();
                         }
                     }
                 });

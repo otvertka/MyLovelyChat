@@ -39,5 +39,12 @@
             android:id="@+id/buttonList"
             android:layout_gravity="center_horizontal"/>
 
+        <TextView
+            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvOnline" />
+
+
     </LinearLayout>
 </RelativeLayout>

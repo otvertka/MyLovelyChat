@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -42,7 +43,7 @@ public class ListActivity extends AppCompatActivity {
     // Listener for firebase session changes
     private FirebaseAuth mAuthStateListener; /**если что удалить/add ".Auth"*/
 
-    // Data from the authentificated user
+    // Data from the authenticated user
     private FirebaseUser mUser;
 
     //progress bar
@@ -79,8 +80,7 @@ public class ListActivity extends AppCompatActivity {
         mFireChatUsersRef = mFirebaseChatRef.child(ReferenceUrl.CHILD_USERS);
 
         // Get s reference to recyclerView
-        /*or FirebaseUser??*/
-        RecyclerView mUserFireChatRecyclerView = (RecyclerView) findViewById(R.id.usersFireChatRecyclerView);
+        RecyclerView userFireChatRecyclerView = (RecyclerView) findViewById(R.id.usersFireChatRecyclerView);
 
         // Get a reference to progress bar
         mProgressBarForUsers = findViewById(R.id.progress_bar_users);
@@ -88,14 +88,17 @@ public class ListActivity extends AppCompatActivity {
         // Initialize adapter
         List<UsersChatModel> emptyListChat = new ArrayList<>();
         mUsersChatAdapter = new UsersChatAdapter(this, emptyListChat);
+        //mUsersChatAdapter = new UsersChatAdapter(this, emptyListChat);
 
         // Set adapter to recycleView
-        mUserFireChatRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mUserFireChatRecyclerView.setHasFixedSize(true);
-        mUserFireChatRecyclerView.setAdapter(mUsersChatAdapter);
+        userFireChatRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        userFireChatRecyclerView.setHasFixedSize(true);
+        userFireChatRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        userFireChatRecyclerView.setAdapter(mUsersChatAdapter);
+
 
         //Initialize keys list
-        mUsersKeyList = new ArrayList<String>();
+        mUsersKeyList = new ArrayList<>();
 
         // Listen for changes in the authentication state
         mAuthStateListener = FirebaseAuth.getInstance();
@@ -121,12 +124,10 @@ public class ListActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 
     private void queryFireChatUsers(){
-        Log.d(TAG, "Hello! " );
+        //Log.d(TAG, "Hello! " );
 
         // Show progress bar
         showProgressBarForUsers();
@@ -134,7 +135,6 @@ public class ListActivity extends AppCompatActivity {
         mListenerUsers = mFireChatUsersRef.limitToFirst(10).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
                 // Hide progress bar
                 hideProgressBarForUsers();
 
@@ -158,17 +158,17 @@ public class ListActivity extends AppCompatActivity {
                         //Log.d(TAG, "mCurrentUserUid: " + mCurrentUserUid);
                         mUsersKeyList.add(userUid);
                         mUsersChatAdapter.refill(user);
-                        Log.d(TAG, "if done" );
-                        Log.d(TAG, " " );
+                        /*Log.d(TAG, "if done" );
+                        Log.d(TAG, " " );*/
 
                     } else{
                         UsersChatModel currentUser = dataSnapshot.getValue(UsersChatModel.class);
                         String userName = currentUser.getFirstName();
                         String createdAt = currentUser.getCreatedAt();
                         mUsersChatAdapter.setNameAndCreatedAt(userName, createdAt);
-                        Log.d(TAG, "username: " + userName + " createdAt: " + createdAt);
+                        /*Log.d(TAG, "username: " + userName + " createdAt: " + createdAt);
                         Log.d(TAG, "else done: ");
-                        Log.d(TAG, " ");
+                        Log.d(TAG, " ");*/
 
                     }
                 }
@@ -210,7 +210,7 @@ public class ListActivity extends AppCompatActivity {
                 Log.d(TAG, "onCancelled ");
             }
         });
-/*
+
         // Store current user status as online
         mConnectionStatusRef = mFireChatUsersRef.child(mCurrentUserUid).child(ReferenceUrl.CHILD_CONNECTION);
 
@@ -238,7 +238,6 @@ public class ListActivity extends AppCompatActivity {
 
             }
         });
-    */
     }
 
     private void navigateToLogin(){

@@ -123,6 +123,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             DatabaseReference current_user_db = databaseReference.child(user_id);
                             current_user_db.setValue(map);
 
+
                             finish();
                             /*Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -145,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (v == textViewSignin){
             //will open login activity here
-            startActivity(new Intent(this, ProfileActivity.class));
+            startActivity(new Intent(this, LoginActivity.class));
         }
     }
 }

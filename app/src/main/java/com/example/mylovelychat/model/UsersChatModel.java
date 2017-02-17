@@ -12,7 +12,7 @@ public class UsersChatModel implements Parcelable {
 
     public static final String TAG = "myLogs";
 
-    /**recipient info*/
+/** recipient info*/
     private String firstName;
     private String provider; //if you don't include this app crash
     private String userEmail;
@@ -22,7 +22,7 @@ public class UsersChatModel implements Parcelable {
     private String mRecipientUid;
 
 
-/**Current user (or sender) info */
+/** Current user (or sender) info */
     private String mCurrentUserName;
     private String mCurrentUserUid;
     private String mCurrentUserEmail;
